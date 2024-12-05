@@ -50,10 +50,9 @@ public class JobImpl implements JobService {
                 job1.get().setTitle(job.getTitle());
                 job1.get().setMaxSalary(job.getMaxSalary());
                 job1.get().setMinSalary(job.getMinSalary());
-
+                jobRepo.save(job1.get());
             }
+
         return job1;
     }
-
-
 }

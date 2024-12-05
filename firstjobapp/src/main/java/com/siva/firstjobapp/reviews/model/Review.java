@@ -1,11 +1,11 @@
-package com.siva.firstjobapp.job.model;
+package com.siva.firstjobapp.reviews.model;
 
 import com.siva.firstjobapp.company.model.Company;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "job_table")
-public class Job {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -25,10 +25,10 @@ public class Job {
         this.company = company;
     }
 
-    public Job() {
+    public Review() {
     }
 
-    public Job(Long id, String title, String description, String minSalary, String maxSalary, String location) {
+    public Review(Long id, String title, String description, String minSalary, String maxSalary, String location) {
         this.id = id;
         this.title = title;
         this.description = description;
