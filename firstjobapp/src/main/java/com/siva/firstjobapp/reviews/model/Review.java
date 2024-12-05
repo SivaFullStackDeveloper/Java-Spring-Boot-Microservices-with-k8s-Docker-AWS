@@ -1,19 +1,19 @@
 package com.siva.firstjobapp.reviews.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.siva.firstjobapp.company.model.Company;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "job_table")
+@Table(name = "review_table")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private String description;
-    private String minSalary;
-    private String maxSalary;
-    private String location;
+    double rating;
+    @JsonIgnore
     @ManyToOne
     private Company company;
 
@@ -28,13 +28,12 @@ public class Review {
     public Review() {
     }
 
-    public Review(Long id, String title, String description, String minSalary, String maxSalary, String location) {
+    public Review(Long id, String title, String description,double rating) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.minSalary = minSalary;
-        this.maxSalary = maxSalary;
-        this.location = location;
+        this.rating = rating;
+
     }
 
     public Long getId() {
@@ -61,27 +60,12 @@ public class Review {
         this.description = description;
     }
 
-    public String getMinSalary() {
-        return minSalary;
+    public double getRating() {
+        return rating;
     }
 
-    public void setMinSalary(String minSalary) {
-        this.minSalary = minSalary;
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
-    public String getMaxSalary() {
-        return maxSalary;
-    }
-
-    public void setMaxSalary(String maxSalary) {
-        this.maxSalary = maxSalary;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 }

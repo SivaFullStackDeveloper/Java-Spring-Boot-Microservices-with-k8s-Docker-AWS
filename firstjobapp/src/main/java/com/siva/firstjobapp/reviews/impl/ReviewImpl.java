@@ -28,9 +28,9 @@ public class ReviewImpl implements ReviewService {
 
     @Override
     public Optional<Review> getJobById(Long id) {
-        Optional<Review> job = reviewRepo.findById(id);
+        Optional<Review> review = reviewRepo.findById(id);
 
-                return job;
+                return review;
     }
 
     @Override
@@ -42,17 +42,15 @@ public class ReviewImpl implements ReviewService {
 
     @Override
     public Optional<Review> updateById(Review review, Long id) {
-        Optional<Review> job1 = reviewRepo.findById(id);
+        Optional<Review> review1 = reviewRepo.findById(id);
 
-            if (job1.get().getId()==id){
-                job1.get().setLocation(review.getLocation());
-                job1.get().setDescription(review.getDescription());
-                job1.get().setTitle(review.getTitle());
-                job1.get().setMaxSalary(review.getMaxSalary());
-                job1.get().setMinSalary(review.getMinSalary());
-                reviewRepo.save(job1.get());
+            if (review1.get().getId()==id){
+                review1.get().setDescription(review.getDescription());
+                review1.get().setTitle(review.getTitle());
+
+                reviewRepo.save(review1.get());
             }
 
-        return job1;
+        return review1;
     }
 }

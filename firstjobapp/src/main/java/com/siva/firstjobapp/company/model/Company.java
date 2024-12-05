@@ -2,6 +2,7 @@ package com.siva.firstjobapp.company.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.siva.firstjobapp.job.model.Job;
+import com.siva.firstjobapp.reviews.model.Review;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public class Company {
     @JsonIgnore
     @OneToMany(mappedBy = "company")
     private List<Job> jobs;
+    @OneToMany(mappedBy = "company")
+    private List<Review> reviews;
 
     public Company() {
     }
