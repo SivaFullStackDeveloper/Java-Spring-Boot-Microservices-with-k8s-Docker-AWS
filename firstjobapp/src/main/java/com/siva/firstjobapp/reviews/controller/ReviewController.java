@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/company/{id}")
+@RequestMapping("/company/{companyID}")
 public class ReviewController {
 
     ReviewService reviewService;
@@ -19,47 +19,35 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/jobs")
-    public ResponseEntity<List<Review>> findAll(){
-        return new ResponseEntity<>(reviewService.findAll(),HttpStatus.OK);
+    @GetMapping("/reviews")
+    public ResponseEntity<List<Review>> findAll(@PathVariable Long companyID){
+        return new ResponseEntity<>(reviewService.findByCompanyId(companyID),HttpStatus.OK);
+    }
+
+    @PostMapping("/reviews")
+    public ResponseEntity<?> addReview(@RequestBody Review review,@PathVariable Long companyID){
+        reviewService.addReview(review,companyID);
+        return new ResponseEntity<>("Successfully added review",HttpStatus.OK);
     }
 
 
-    @PostMapping("/add")
-    public ResponseEntity<String> add(@RequestBody Review review){
-        reviewService.createJob(review);
-        return new ResponseEntity<>("success",HttpStatus.CREATED);
+    @GetMapping("/review/{reviewId}")
+    public ResponseEntity<Review> getReview(@PathVariable Long reviewId,@PathVariable Long companyID){
+        Review review = reviewService.getReview(companyID, reviewId);
+        return new ResponseEntity<>(review,HttpStatus.OK);
     }
 
-    @GetMapping("/jobs/{id}")
-    public ResponseEntity<Optional<Review>> add(@PathVariable Long id){
-        Optional<Review> job = reviewService.getJobById(id);
-        if (job !=null){
-            return new ResponseEntity<>(job, HttpStatus.OK);
-        }
-        return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+
+    @PutMapping("/review/{reviewId}")
+    public ResponseEntity<Review> updateReview(@PathVariable Long reviewId,@PathVariable Long companyID,@RequestBody Review review1){
+        Review review = reviewService.updateReview(companyID, reviewId,review1);
+        return new ResponseEntity<>(review,HttpStatus.OK);
     }
 
-    @DeleteMapping("/jobs/{id}")
-    public ResponseEntity<Boolean> deleteById(@PathVariable Long id){
-        boolean deleted = reviewService.deleteById(id);
-        if(deleted == true){
-            return new ResponseEntity<>(deleted, HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(deleted, HttpStatus.NOT_FOUND);
-
-    }
-
-    @PutMapping("/jobs/{id}")
-    public ResponseEntity<Optional<Review>> updateById(@RequestBody Review review, @PathVariable Long id){
-        Optional<Review> update = reviewService.updateById(review,id);
-        if(update != null){
-            return new ResponseEntity<>(update, HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(update, HttpStatus.NOT_FOUND);
-
+    @DeleteMapping("/review/{reviewId}")
+    public ResponseEntity<String> deleteReview(@PathVariable Long reviewId,@PathVariable Long companyID){
+         reviewService.deleteReview(companyID, reviewId);
+        return new ResponseEntity<>("Review is deleted SuccessFully",HttpStatus.OK);
     }
 
 }
