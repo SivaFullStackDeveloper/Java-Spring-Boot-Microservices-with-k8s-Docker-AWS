@@ -1,4 +1,4 @@
-./mvnw spring-boot:build-image "-Dspring-boot.build-image.imageName=sivafullstackdeveloper504/jobappimage"
+./mvnw spring-boot:build-image "-Dspring-boot.build-image.imageName=sivafullstackdeveloper504/jobapp"
 docker images
 docker tag <image id> sivafullstackdeveloper504/jobapp:latest
 docker push sivafullstackdeveloper504/jobapp:latest
@@ -6,33 +6,26 @@ docker push sivafullstackdeveloper504/jobapp:latest
 ------------************  DATABASE  ************------------
 docker run -d --name db -e POSTGRES_PASSWORD=siva postgres
 docker run -d --name pgadmin -e PGADMIN_DEFAULT_EMAIL=sivaflutterdeveloper@gmail.com -e PGADMIN_DEFAULT_PASSWORD=7013243595@a dpage/pgadmin4
-docker rm -f db pgadmin --- to remove admin
 docker exec -it pgadmin ping db
+docker rm -f db pgadmin --- to remove admin
 docker network create my-network  --->>> this is ot cretae docker network
 docker run -d --name db --network my-network -e POSTGRES_PASSWORD=siva postgres
 docker run -d --name pgadmin --network my-network  -e PGADMIN_DEFAULT_EMAIL=siva@gmail.com  -e PGADMIN_DEFAULT_PASSWORD=7013243595@a dpage/pgadmin4
 
 start the pgadmin and postgres service commands
-docker run -d \
-  --name postgres \
-  --network my-network \
-  -e POSTGRES_USER=siva@gmail.com \
-  -e POSTGRES_PASSWORD=siva \
-  -e POSTGRES_DB=your_database \
-  -p 5432:5432 \
-  postgres:latest
-
 
 docker run -d \
-  --name pgadmin \
-  --network my-network \
-  -e PGADMIN_DEFAULT_EMAIL=siva@gmail.com \
-  -e PGADMIN_DEFAULT_PASSWORD=7013243595@a \
-  -p 80:80 \
-  dpage/pgadmin4
+--name postgres_container\ -e POSTGRES_USER=siva \ -e POSTGRES_PASSWORD=siva \ -e PGDATA=/data/postgres \ -v postgres:/data/postgres \ -p 5432:5432 \
+--network postgres \
+--restart unless-stopped \ postgres
 
 
- docker stop pgadmin
-docker rm pgadmin
-docker compose up
-
+Start the TgAdmin service: docker run -d \
+--name pgadmin_container\
+-e
+PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org\
+-e PGADMIN_DEFAULT_PASSWORD=admin\
+-e PGADMIN_CONFIG_SERVER_MODE=False \ -v pgadmin:/var/lib/pgadmin\
+-p 5050:80 \
+--network postgres \
+--restart unless-stopped \ dpage/pgadmin4

@@ -17,10 +17,14 @@ spring:
 #    console:
 #      enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/firstjobapp
-    username: postgres
-    password: siva
-    driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://localhost:5432/jobapp
+      username: siva
+      password: siva
+      driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/firstjobapp
+#    username: postgres
+#    password: siva
+#    driver-class-name: org.postgresql.Driver
 
 management:
   endpoints:

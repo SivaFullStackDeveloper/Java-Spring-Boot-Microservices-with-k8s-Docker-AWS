@@ -1,34 +1,39 @@
 version: '3.8'
-
 services:
   postgres:
-    image: postgres:latest
-    container_name: postgres
+    image: postgres
+    container_name: postgres_container
     environment:
       POSTGRES_USER: siva
       POSTGRES_PASSWORD: siva
-      POSTGRES_DB: jobappdb  # You can specify a default database name here
-    networks:
-      - my-network
+      PGDATA: /data/postgres
+    volumes:
+      - postgres_data:/data/postgres
     ports:
       - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - postgres_network
+    restart: unless-stopped
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: pgadmin
+    container_name: pgadmin_container
     environment:
       PGADMIN_DEFAULT_EMAIL: siva@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: 7013243595@a
-    networks:
-      - my-network
+      PGADMIN_DEFAULT_PASSWORD: siva
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
     ports:
-      - "80:80"
+      - "5050:80"
+    networks:
+      - postgres_network
+    restart: unless-stopped
 
 networks:
-  my-network:
+  postgres_network:
     driver: bridge
 
 volumes:
   postgres_data:
+  pgadmin_data:
