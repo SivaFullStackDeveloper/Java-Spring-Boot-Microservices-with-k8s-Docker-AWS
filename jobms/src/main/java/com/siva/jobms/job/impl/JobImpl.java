@@ -1,9 +1,9 @@
-package com.siva.firstjobapp.job.impl;
+package com.siva.jobms.job.impl;
 
 
-import com.siva.firstjobapp.job.model.Job;
-import com.siva.firstjobapp.job.repo.JobRepo;
-import com.siva.firstjobapp.job.service.JobService;
+import com.siva.jobms.job.model.Job;
+import com.siva.jobms.job.repo.JobRepo;
+import com.siva.jobms.job.service.JobService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

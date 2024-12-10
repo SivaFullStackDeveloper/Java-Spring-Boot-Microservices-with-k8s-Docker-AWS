@@ -1,7 +1,7 @@
-package com.siva.firstjobapp.job.service;
+package com.siva.jobms.job.service;
 
 
-import com.siva.firstjobapp.job.model.Job;
+import com.siva.jobms.job.model.Job;
 
 import java.util.List;
 import java.util.Optional;

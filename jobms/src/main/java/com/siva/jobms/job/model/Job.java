@@ -1,7 +1,6 @@
-package com.siva.firstjobapp.job.model;
+package com.siva.jobms.job.model;
 
 
-import com.siva.firstjobapp.company.model.Company;
 import jakarta.persistence.*;
 
 @Entity
@@ -24,16 +23,16 @@ public class Job {
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
-    @ManyToOne
-    private Company company;
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
+//    @ManyToOne
+//    private Company company;
+//
+//    public Company getCompany() {
+//        return company;
+//    }
+//
+//    public void setCompany(Company company) {
+//        this.company = company;
+//    }
 
     public Job() {
     }
